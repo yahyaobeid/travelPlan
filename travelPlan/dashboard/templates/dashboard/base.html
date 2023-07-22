@@ -1,22 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Project Title</title>
+    <title>TravelMate</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
-    <nav>
+    <div class="navbar">
         <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'explore' %}">Explore</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="navbar-title"><a href="{% url 'home' %}">TravelMate</a></li>
+            <li><a href="{% url 'profile' %}">Profile</a></li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'profile' %}">Profile</a></li>
-                <li><a href="{% url 'explore' %}">Explore</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
             {% endif %}
         </ul>
-    </nav>
+    </div>
     {% block content %}
 
     {% endblock %}

@@ -1,7 +1,10 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>Register</h1>
+<link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+
+<h1>Registration</h1>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
@@ -9,3 +12,4 @@
 </form>
 
 {% endblock %}
+
