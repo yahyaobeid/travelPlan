@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
-from .forms import RegistrationForm
+from .forms import RegistrationForm, EditProfileForm
 from .models import User
 
 def login_view(request):
@@ -59,10 +59,28 @@ def base_view(request):
 def index(request):
     return render(request, 'dashboard/index.html')
 
-def profile(request):
-    # Handle profile page logic here
-    return render(request, 'dashboard/profile.html')
+def profile_view(request):
+    user = request.user
+
+    context = {
+        'user': user,
+    }
+
+    return render(request, 'dashboard/profile.html', context)
 
 def explore(request):
     # Handle explore page logic here
     return render(request, 'dashboard/explore.html')
+
+def edit_profile(request):
+    user = request.user
+
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = EditProfileForm(instance=user)
+
+    return render(request, 'dashboard/edit_profile.html', {'form': form})
