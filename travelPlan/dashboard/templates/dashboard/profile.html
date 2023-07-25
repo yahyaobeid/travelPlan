@@ -1,22 +1,25 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/explore.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
     <h1>Profile</h1>
     <div class="profile-info">
-    <div class="profile-picture">
-      {% if user_profile.profile_picture %}
-        <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture">
-      {% endif %}
+        <div class="profile-picture">
+            {% if user.profile_pic %}
+                <img src="{{ user.profile_pic.url }}" alt="Profile Picture">
+            {% else %}
+                <img src="{% static 'images/default_profile_pic.jpg' %}" alt="Default Profile Picture">
+            {% endif %}
+        </div>
+        <div class="profile-details">
+            <h2>{{ user.username }}</h2>
+            <p>Name: {{ user.name }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Bio: {{ user.bio }}</p>
+            <p>Location: {{ user.location }}</p>
+            <div class="edit-profile-button-container">
+                <a href="{% url 'edit_profile' %}" class="edit-profile-button">Edit Profile</a>
+            </div>
+        </div>
     </div>
-    <div class="profile-details">
-      <h2>{{ user.username }}</h2>
-      <p>Name: {{ user_profile.name }}</p>
-      <p>Email: {{ user.email }}</p>
-      <p>Bio: {{ user_profile.bio }}</p>
-      <p>Location: {{ user_profile.location }}</p>
-    </div>
-  </div>
-  <a href="{% url 'edit_profile' %}" class="edit-profile-button">Edit Profile</a>
 {% endblock %}
-

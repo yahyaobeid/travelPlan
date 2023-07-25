@@ -9,7 +9,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=300)
     confirm_password = models.CharField(max_length=300)
     profile_pic = models.ImageField(upload_to='images/profile_pictures', blank=True)
-    bio = models.TextField(blank=True)
+    bio = models.CharField(max_length=700)
     location=models.CharField(max_length=150, blank=True)
     last_login = models.DateTimeField(auto_now=True, null=True)
     is_superuser = models.BooleanField(default=False)

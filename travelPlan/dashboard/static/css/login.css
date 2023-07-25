@@ -2,60 +2,79 @@
 
 body {
     font-family: Arial, sans-serif;
+    background-image: url("../../static/images/travel_background.jpeg");
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
   }
   
-  form {
+  .login-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 10px;
     max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    text-align: center;
   }
   
   h1 {
-    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
   }
   
-  input[type="text"],
-  input[type="password"] {
+  form {
+    margin-bottom: 20px;
+  }
+  
+  form label {
     display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  form input[type="text"],
+  form input[type="password"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 16px;
   }
   
-  button {
-    display: block;
+  form button {
     width: 100%;
-    padding: 10px;
-    border: none;
+    padding: 12px;
     background-color: #007bff;
     color: #fff;
-    font-size: 16px;
-    font-weight: bold;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
   }
   
-  button:hover {
+  form button:hover {
     background-color: #0056b3;
   }
   
-  a {
-    display: block;
-    text-align: center;
-    margin-top: 10px;
+  .register-link {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .register-link a {
     color: #007bff;
     text-decoration: none;
   }
   
-  a:hover {
+  .register-link a:hover {
     text-decoration: underline;
   }

@@ -1,15 +1,14 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
-
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
-
-<h1>Registration</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+    <div class="register-form">
+        <h1>Register</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Register</button>
+        </form>
+        <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </div>
 {% endblock %}
-

@@ -1,7 +1,26 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-<h1>Home Page</h1>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <h1>Welcome to TravelMate!</h1>
+    <div class="home-form">
+        <form>
+            <label for="destination">Where do you want to go?</label>
+            <input type="text" id="destination" name="destination" placeholder="Enter your destination" required>
 
+            <label for="duration">How many days will you be traveling?</label>
+            <input type="number" id="duration" name="duration" min="1" required>
+
+            <label for="preferences">Any preferences?</label>
+            <input type="text" id="preferences" name="preferences" placeholder="Enter your preferences">
+
+            <label for="food">What kind of food do you like to eat?</label>
+            <input type="text" id="food" name="food" placeholder="Enter your favorite food">
+
+            <label for="interests">Interests:</label>
+            <textarea id="interests" name="interests" placeholder="Tell us about your interests"></textarea>
+
+            <button type="submit">Plan My Trip</button>
+        </form>
+    </div>
 {% endblock %}
