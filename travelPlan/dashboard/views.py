@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from .forms import RegistrationForm, EditProfileForm
-from .models import User
+from .models import User, TravelPlan
+from .openai_utils import create_completion
 
 def login_view(request):
     if request.method == 'POST':
@@ -84,3 +85,29 @@ def edit_profile(request):
         form = EditProfileForm(instance=user)
 
     return render(request, 'dashboard/edit_profile.html', {'form': form})
+
+def some_view(request):
+    if request.method == 'POST':
+        # Retrieve form data from the request
+        destination = request.POST.get('destination')
+        duration = int(request.POST.get('duration'))
+        preferences = request.POST.get('preferences')
+        food_preferences = request.POST.get('food-preferences')
+        interests = request.POST.get('interests')
+
+        # Call the send_api_request function with the form data
+        response_data = create_completion(destination, duration, preferences, food_preferences, interests)
+
+        if response_data is not None:
+            # API request was successful, create and save TravelPlan object
+            travel_plan = TravelPlan(destination=destination, days=duration, api_response=response_data)
+            travel_plan.save()
+            # Optionally, you can add a success message here
+            return redirect('profile')  # Replace 'profile' with the URL name of the profile page
+        else:
+            # API request failed, handle error (e.g., show an error message to the user)
+            # Optionally, you can add an error message here
+            return render(request, 'dashboard/profile.html')
+
+    # If it's not a POST request, render the form page
+    return render(request, 'form_page.html')

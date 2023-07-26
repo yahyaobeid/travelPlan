@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <h1>Welcome to TravelMate!</h1>
     <div class="home-form">
-        <form>
+        <form id="trip-form">
             <label for="destination">Where do you want to go?</label>
             <input type="text" id="destination" name="destination" placeholder="Enter your destination" required>
 
@@ -14,7 +14,7 @@
             <label for="preferences">Any preferences?</label>
             <input type="text" id="preferences" name="preferences" placeholder="Enter your preferences">
 
-            <label for="food">What kind of food do you like to eat?</label>
+            <label for="food-preferences">What are any dietary preferences you have?</label>
             <input type="text" id="food" name="food" placeholder="Enter your favorite food">
 
             <label for="interests">Interests:</label>
@@ -23,4 +23,57 @@
             <button type="submit">Plan My Trip</button>
         </form>
     </div>
+
+    <script>
+        const fetchTravelItinerary = (formData) => {
+        const conversation = [
+            {
+            role: "user",
+            content: formData, // Pass the form data as the user's input
+            },
+            {
+            role: "assistant",
+            content: "Generate a travel itinerary based on the user's inputs.", // You can customize the system message as desired
+            },
+        ];
+
+        fetch("https://api.openai.com/v1/engines/text-davinci-003/completions", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer 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", // Replace with your actual API key
+            },
+            body: JSON.stringify({
+            model: "text-davinci-003",
+            messages: conversation,
+            max_tokens: 2000, // You can adjust this value to control the response length
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Add these debugging statements
+                console.log("API Response Data:", data);
+
+                // Check if 'choices' is defined and not empty
+                if (data.choices && data.choices.length > 0) {
+                const generatedItinerary = data.choices[0].text;
+                console.log("Generated Itinerary:", generatedItinerary);
+                } else {
+                console.error("No choices found in API response.");
+                }
+            })
+            .catch((error) => {
+            // Handle any errors that occur during the API request
+            console.error("Error:", error);
+            });
+        };
+
+        // Usage example: Call the function with the form data when the form is submitted
+        document.getElementById("trip-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        fetchTravelItinerary(Object.fromEntries(formData));
+        });
+     </script>
 {% endblock %}

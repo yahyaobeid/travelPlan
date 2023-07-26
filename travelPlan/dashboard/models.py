@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 class User(AbstractUser):
     USERNAME_FIELD='username'
@@ -21,3 +22,12 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+    
+class TravelPlan(models.Model):
+    destination = models.CharField(max_length=200)
+    days = models.IntegerField()
+    data = models.JSONField()
+
+    def __str__(self):
+        return self.destination
+

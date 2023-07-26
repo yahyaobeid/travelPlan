@@ -1,12 +1,15 @@
-
-
-body {
-    font-family: Arial, sans-serif;
-    background-image: url("../../static/images/travel_background.jpeg");
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
+html {
+    height: 100%;
+    overflow: hidden;
   }
+  
+  body {
+      font-family: Arial, sans-serif;
+      background-image: url("../../static/images/login_background.jpeg");
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
   
   .login-form {
     position: absolute;
