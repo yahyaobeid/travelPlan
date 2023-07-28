@@ -1,6 +1,10 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
+{% load socialaccount %}
 {% block content %}
+<head>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
     <div class="login-form">
         <h1>Login</h1>
@@ -9,6 +13,54 @@
             {{ form.as_p }}
             <button type="submit">Login</button>
         </form>
+        <a href="{% provider_login_url 'google' %}?next=/">Login With Google</a>
+        
         <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
     </div>
+    <!-- <script>
+        function handleGoogleSignIn() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init({
+                    client_id: '503070400861-nr6380gmnit2plh0iafh74garda75kcj.apps.googleusercontent.com',
+                }).then(function(auth2) {
+                    auth2.signIn().then(function(googleUser) {
+                        // Access the user's information
+                        var profile = googleUser.getBasicProfile();
+    
+                        // Prepare the user data to send to the backend
+                        var userData = {
+                            email: profile.getEmail(),
+                            name: profile.getName(),
+                            // Add any other relevant user data here
+                        };
+    
+                        // Send the user data to the backend using an AJAX POST request
+                        fetch('/api/google-login/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}',  // Ensure you have this in your template
+                            },
+                            body: JSON.stringify(userData),
+                        })
+                        .then(function(response) {
+                            if (response.ok) {
+                                // Redirect to the desired page after successful login
+                                window.location.href = "{% url 'home' %}";  // Replace 'home' with your desired URL name
+                            } else {
+                                // Handle any errors that occur during the login process
+                                console.error('Error during Google login:', response.statusText);
+                            }
+                        })
+                        .catch(function(error) {
+                            console.error('Error during Google login:', error);
+                        });
+                    }).catch(function(error) {
+                        console.error('Google Sign-In error:', error);
+                    });
+                });
+            });
+        }
+    </script> -->
+    
 {% endblock %}
